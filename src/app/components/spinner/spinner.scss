@@ -1,0 +1,121 @@
+@import "../../styles/index";
+
+$block: 'spinner';
+
+.#{$block} {
+
+  display: inline-block;
+
+  box-sizing: border-box;
+
+  position: relative;
+
+  text-align: initial;
+
+  vertical-align: middle;
+
+}
+
+
+
+.#{$block}--default {
+
+  border-color: $red;
+
+  border-top-color: transparent;
+
+  border-width: 3px;
+
+  border-style: solid;
+
+  border-radius: 50%;
+
+  animation: spinner-default-animate 1.1s infinite linear;
+
+  &.#{$block}--size-medium {
+
+    height: 30px;
+
+    width: 30px;
+
+    border-width: 3px;
+
+  }
+
+  &.#{$block}--color-black {
+
+    border-color: $black;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-white {
+
+    border-color: $white;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-gray {
+
+    border-color: $gray;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-blue {
+
+    border-color: $blue;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-red {
+
+    border-color: $red;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-green {
+
+    border-color: $green;
+
+    border-top-color: transparent;
+
+  }
+
+  &.#{$block}--color-orange {
+
+    border-color: $orange;
+
+    border-top-color: transparent;
+
+  }
+
+}
+
+
+
+// Animations
+
+@keyframes spinner-default-animate {
+
+  0% {
+
+    transform: rotate(0deg)
+
+  }
+
+  100% {
+
+    transform: rotate(1turn)
+
+  }
+
+}

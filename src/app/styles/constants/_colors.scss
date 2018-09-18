@@ -1,0 +1,33 @@
+$white:                                       #ffffff;
+$white-light:                                 #ffffff;
+$white-dark:                                  #ffffff;
+
+$black:                                       #121212;
+$black-light:                                 #17181a;
+$black-dark:                                  #000000;
+
+$gray:                                        #7a8a99;
+$gray-light:                                  #c8ccd0;
+$gray-dark:                                   #6c7680;
+
+$blue:                                        #004786;
+$blue-hover:                                  #005a99;
+$blue-alt:                                    #0078b8;
+$blue-alt-light:                              #008acc;
+$blue-light:                                  #009fdf;
+$blue-dark:                                   #0078b8;
+
+$red:                                         #e62632;
+
+$orange:                                      #f8a44a;
+$orange-light:                                #fb9601;
+$orange-dark:                                 #fb9601;
+
+$green:                                       #21d34f;
+$green-light:                                 #21d34f;
+$green-dark:                                  #0fb284;
+
+$purple:                                      #832ef9;
+$purple-light:                                lighten($purple, 10%);
+$purple-dark:                                 darken($purple, 10%);
+
