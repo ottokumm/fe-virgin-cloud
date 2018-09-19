@@ -10,7 +10,6 @@ const itemClassName = 'list__item';
 const linkClassName = 'linkClassName';
 
 export function List({
-    view = 'default',
     items = [],
     renderItem = defaultRenderItem,
     className,
@@ -40,7 +39,6 @@ function renderItems(data, renderItem) {
     );
 }
 
-function defaultRenderItem(itemData, className) {
+function defaultRenderItem(itemData) {
     return itemData.text;
 }
-

@@ -7,11 +7,11 @@ module.exports = {
     },
     module: {
         rules: [{
-
             test: /\.(js|jsx)$/,
-            use: {
-                loader: 'babel-loader',
-            },
+            use: [
+                'babel-loader',
+                "eslint-loader"
+            ],
             exclude: [
                 /node_modules/,
                 /\.(test|spec|e2e)\.(js|jsx)$/

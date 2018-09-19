@@ -12,21 +12,12 @@ const classesAfter = 'classesAfter';
 
 export function ListItem({
     component: Component = 'div',
-    size = 'medium',
-    link = false,
-    disabled = false,
-
-    hovered,
-
     media,
+    className,
     content,
     after,
-
     contentStyle,
     afterStyle,
-
-    className,
-
     children,
     ...props
 }) {
@@ -35,17 +26,21 @@ export function ListItem({
     return (
         <Component {...props} className={itemClasses}>
             {!children && renderMedia({ media })}
-            {!children && renderInner({ content, after, contentStyle, afterStyle })}
+            {!children && renderInner({
+                content, after, contentStyle, afterStyle,
+            })}
             {children}
         </Component>
-    )
+    );
 }
 
-function renderMedia({media}) {
+function renderMedia({ media }) {
     return media && <div className={classesMedia}>{media}</div>;
 }
 
-function renderInner({content, after, contentStyle, afterStyle}) {
+function renderInner({
+    content, after, contentStyle, afterStyle,
+}) {
     return (
         <div className={classesInner}>
             {content && <div className={classesContent} style={contentStyle}>{content}</div>}

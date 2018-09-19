@@ -16,10 +16,10 @@ export function Spinner({
 }) {
   const classes = cn(
     'spinner',
-    {[`spinner--${name}`]: name},
-    {[`spinner--size-${size}`]: size},
-    {[`spinner--color-${color}`]: color},
-    className
+    { [`spinner--${name}`]: name },
+    { [`spinner--size-${size}`]: size },
+    { [`spinner--color-${color}`]: color },
+    className,
   );
 
   return (
