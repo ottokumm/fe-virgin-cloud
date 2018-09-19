@@ -51,28 +51,27 @@ export class Root extends React.Component {
 
   renderList() {
     const { data } = this.state;
+
     return (
-      <List
-        items={data}
-        renderItem={item => (
-          <ListItem
-            media={<Icon icon={getIconByFileType(item.fType)} />}
-            content={item.name}
-            after={item.mediaType}
+            <List
+                items={data}
+                renderItem={
+                    item => (
+                            <ListItem
+                                media={<Icon icon={getIconByFileType(item.fType)} />}
+                                content={item.name}
+                                after={item.mediaType}
+                            />
+                        )
+                }
             />
-        )}
-        />
     );
   }
 
   render() {
     const { isPending } = this.state;
 
-    return (
-      <div style={styles.layout}>
-        {isPending ? renderLoader() : this.renderList()}
-      </div>
-    );
+    return <div style={styles.layout}>{isPending ? renderLoader() : this.renderList()}</div>;
   }
 }
 

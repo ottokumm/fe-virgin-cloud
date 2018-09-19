@@ -10,35 +10,33 @@ const itemClassName = 'list__item';
 const linkClassName = 'linkClassName';
 
 export function List({
-    items = [],
-    renderItem = defaultRenderItem,
-    className,
-    children,
-  ...props
+    items = [], renderItem = defaultRenderItem, className, children, ...props
 }) {
-    const classes = cn('list', className);
-    return (
-        <div {...props} className={classes}>
-            {!children && renderItems(items, renderItem)}
-            {children}
-        </div>
-    );
+  const classes = cn('list', className);
+  return (
+    <div {...props} className={classes}>
+      {!children && renderItems(items, renderItem)}
+      {children}
+    </div>
+  );
 }
 
 function renderItems(data, renderItem) {
-    const showItems = data && !!data.length;
+  const showItems = data && !!data.length;
 
-    return showItems && (
-        <ul className={itemsClassName}>
-            {data.map((item, i) => (
-                <li key={`${item.id || i}`} className={itemClassName}>
-                    {renderItem(item, linkClassName)}
-                </li>
-            ))}
-        </ul>
-    );
+  return (
+    showItems && (
+      <ul className={itemsClassName}>
+        {data.map((item, i) => (
+          <li key={`${item.id || i}`} className={itemClassName}>
+            {renderItem(item, linkClassName)}
+          </li>
+        ))}
+      </ul>
+    )
+  );
 }
 
 function defaultRenderItem(itemData) {
-    return itemData.text;
+  return itemData.text;
 }

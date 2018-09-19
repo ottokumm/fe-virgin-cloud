@@ -1,7 +1,7 @@
 {
   "disableLanguages": [],
   "useTabs": false,
-  "printWidth": 80,
+  "printWidth": 280,
   "tabWidth": 2,
   "singleQuote": true,
   "trailingComma": "all",
@@ -9,5 +9,5 @@
   "parser": "babylon",
   "noSemi": true,
   "rcVerbose": true,
-  "arrowParens": "always",
+  "arrowParens": "always"
 }

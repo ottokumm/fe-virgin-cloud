@@ -1,15 +1,10 @@
 import axios from 'axios';
-import {
-  API_HOST,
-  API_ROOT,
-} from '../constants/api';
+import { API_HOST, API_ROOT } from '../constants/api';
 
 export async function callApi(endpoint, params = {}) {
   console.log('[CALL API] Called with endpoint', endpoint);
 
-  const {
-    method = 'GET', body = null,
-  } = params;
+  const { method = 'GET', body = null } = params;
 
   const url = endpoint.indexOf('http') !== 0 ? `${API_HOST}${API_ROOT}${endpoint}` : endpoint;
   const options = {
@@ -46,7 +41,7 @@ export function optionsToParameterizedUrl(options) {
 
 export async function request(endpoint, options, checkErrors = true) {
   const response = await callApi(endpoint, options);
-
+  console.log('RESPONSE', response);
   if (checkErrors) {
     checkSuccess(response);
   }
@@ -55,21 +50,10 @@ export async function request(endpoint, options, checkErrors = true) {
 }
 
 export const Request = {
-  get: (endpoint, data) => request(endpoint, {
-    body: data,
-  }),
-  post: (endpoint, data) => request(endpoint, {
-    method: 'POST',
-    body: data,
-  }),
-  put: (endpoint, data) => request(endpoint, {
-    method: 'PUT',
-    body: data,
-  }),
-  delete: (endpoint, data) => request(endpoint, {
-    method: 'DELETE',
-    body: data,
-  }),
+  get: (endpoint, data) => request(endpoint, { body: data }),
+  post: (endpoint, data) => request(endpoint, { method: 'POST', body: data }),
+  put: (endpoint, data) => request(endpoint, { method: 'PUT', body: data }),
+  delete: (endpoint, data) => request(endpoint, { method: 'DELETE', body: data }),
 };
 
 function checkSuccess(response) {
