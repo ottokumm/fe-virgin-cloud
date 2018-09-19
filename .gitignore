@@ -1,0 +1,9 @@
+# build
+dist/
+.cache/
+!.cache/.gitkeep
+
+# Node
+node_modules
+*.log
+.nvm
