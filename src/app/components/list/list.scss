@@ -1,72 +1,61 @@
 $block: 'list';
-
 $list-header-font-size: 15px;
 $list-header-line-height: 15px;
 $list-header-text-color: #7a8a99;
-$list-header-background-color:  #f5f8fa;
+$list-header-background-color: #f5f8fa;
 $list-header-padding: (13px 16px);
-
 $list-border-color: #e5e5e5;
 $list-items-border-color: #e5e5e5;
 $list-item-divider-color: #d5dbe0;
 $list-item-divider-offset-left: 16px;
-
 .#{$block} {
-  display: block;
-
-  &--bordered {
-    border-bottom: 1px solid $list-items-border-color;
-  }
-
-  &__header {
-    background: $list-header-background-color;
-    color: $list-header-text-color;
-    font-size: $list-header-font-size;
-    line-height: $list-header-line-height;
-    padding: $list-header-padding;
-  }
-
-  &__items {
-    background: #ffffff;
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    position: relative;
-
-    &::before,
-    &::after {
-      display: block;
-      position: absolute;
-      content: '';
-      left: 0;
-      right: auto;
-      height: 1px;
-      width: 100%;
-      background-color: $list-border-color;
-      z-index: 15;
-      transform-origin: 50% 100%;
+    display: block;
+    &--bordered {
+        border-bottom: 1px solid $list-items-border-color;
     }
-
-    &::before {
-      top: 0;
-      bottom: auto;
+    &__header {
+        background: $list-header-background-color;
+        color: $list-header-text-color;
+        font-size: $list-header-font-size;
+        line-height: $list-header-line-height;
+        padding: $list-header-padding;
     }
-
-    &::after {
-      top: auto;
-      bottom: 0;
+    &__items {
+        background: #ffffff;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        &::before,
+        &::after {
+            display: block;
+            position: absolute;
+            content: '';
+            left: 0;
+            right: auto;
+            height: 1px;
+            width: 100%;
+            background-color: $list-border-color;
+            z-index: 15;
+            transform-origin: 50% 100%;
+        }
+        &::before {
+            top: 0;
+            bottom: auto;
+        }
+        &::after {
+            top: auto;
+            bottom: 0;
+        }
     }
-  }
-
-  &__item {
-    position: relative;
-
-    &::after {
-      background: $list-item-divider-color;
-      position: absolute;
-      height: 1px;
-      right: 0;
-      bottom: 0;
+    &__item {
+        position: relative;
+        &::after {
+            background: $list-item-divider-color;
+            position: absolute;
+            height: 1px;
+            right: 0;
+            bottom: 0;
+        }
     }
-  }
 }

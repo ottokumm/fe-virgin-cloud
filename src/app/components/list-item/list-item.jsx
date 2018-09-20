@@ -11,40 +11,40 @@ const classesContent = 'classesContent';
 const classesAfter = 'classesAfter';
 
 export function ListItem({
-    component: Component = 'div',
-    media,
-    className,
-    content,
-    after,
-    contentStyle,
-    afterStyle,
-    children,
-    ...props
+  component: Component = 'div',
+  media,
+  className,
+  content,
+  after,
+  contentStyle,
+  afterStyle,
+  children,
+  ...props
 }) {
-    const itemClasses = cn('list-item', className);
+  const itemClasses = cn('list-item', className);
 
-    return (
-        <Component {...props} className={itemClasses}>
-            {!children && renderMedia({ media })}
-            {!children && renderInner({
-                content, after, contentStyle, afterStyle,
-            })}
-            {children}
-        </Component>
-    );
+  return (
+    <Component {...props} className={itemClasses}>
+      {!children && renderMedia({ media })}
+      {!children && renderInner({
+        content, after, contentStyle, afterStyle,
+      })}
+      {children}
+    </Component>
+  );
 }
 
 function renderMedia({ media }) {
-    return media && <div className={classesMedia}>{media}</div>;
+  return media && <div className={classesMedia}>{media}</div>;
 }
 
 function renderInner({
-    content, after, contentStyle, afterStyle,
+  content, after, contentStyle, afterStyle,
 }) {
-    return (
-        <div className={classesInner}>
-            {content && <div className={classesContent} style={contentStyle}>{content}</div>}
-            {after && <div className={classesAfter} style={afterStyle}>{after}</div>}
-        </div>
-    );
+  return (
+    <div className={classesInner}>
+      {content && <div className={classesContent} style={contentStyle}>{content}</div>}
+      {after && <div className={classesAfter} style={afterStyle}>{after}</div>}
+    </div>
+  );
 }

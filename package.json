@@ -6,7 +6,9 @@
   "scripts": {
     "start": "webpack-dev-server --open --mode development",
     "build": "webpack --mode production",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "eslint": "eslint \"src/**/*.@(js|jsx)\"",
+    "stylelint": "stylelint \"src/**/*.scss\""
   },
   "keywords": [],
   "author": "",
@@ -49,6 +51,8 @@
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
     "eslint-plugin-react": "^7.11.0",
-    "install-peerdeps": "^1.8.0"
+    "install-peerdeps": "^1.8.0",
+    "stylelint": "^9.5.0",
+    "stylelint-config-recommended": "^2.1.0"
   }
 }

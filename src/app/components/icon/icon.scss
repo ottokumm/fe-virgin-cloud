@@ -1,69 +1,35 @@
 $block: 'icon';
-
 $icon-size-medium: 24px;
-
 .#{$block} {
-
-  display: inline-block;
-
-  vertical-align: top;
-
-  position: relative;
-
-  flex: 0 0 auto;
-
-  &::before {
-
-    background-repeat: no-repeat;
-
-    background-position: center;
-
-    content: '';
-
-    position: absolute;
-
-    top: 0;
-
-    left: 0;
-
-  }
-
-  &--size-medium {
-
-    width: $icon-size-medium;
-
-    height: $icon-size-medium;
-
-    line-height: $icon-size-medium;
-
+    display: inline-block;
+    vertical-align: top;
+    position: relative;
+    flex: 0 0 auto;
     &::before {
-
-      width: $icon-size-medium;
-
-      height: $icon-size-medium;
-
+        background-repeat: no-repeat;
+        background-position: center;
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
     }
-
-  } // Icons
-
-  &--folder {
-
-    &::before {
-
-      background-image: url('../../assets/icons/icon-folder.svg');
-
+    &--size-medium {
+        width: $icon-size-medium;
+        height: $icon-size-medium;
+        line-height: $icon-size-medium;
+        &::before {
+            width: $icon-size-medium;
+            height: $icon-size-medium;
+        }
+    } // Icons
+    &--folder {
+        &::before {
+            background-image: url('../../assets/icons/icon-folder.svg');
+        }
     }
-
-  }
-
-  &--image {
-
-    &::before {
-
-      background-image: url('../../assets/icons/icon-image.svg');
-
+    &--image {
+        &::before {
+            background-image: url('../../assets/icons/icon-image.svg');
+        }
     }
-
-  }
-
 }

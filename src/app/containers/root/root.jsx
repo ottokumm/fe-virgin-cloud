@@ -53,18 +53,18 @@ export class Root extends React.Component {
     const { data } = this.state;
 
     return (
-            <List
-                items={data}
-                renderItem={
+      <List
+        items={data}
+        renderItem={
                     item => (
-                            <ListItem
-                                media={<Icon icon={getIconByFileType(item.fType)} />}
-                                content={item.name}
-                                after={item.mediaType}
-                            />
-                        )
+                      <ListItem
+                        media={<Icon icon={getIconByFileType(item.fType)} />}
+                        content={item.name}
+                        after={item.mediaType}
+                      />
+                    )
                 }
-            />
+      />
     );
   }
 

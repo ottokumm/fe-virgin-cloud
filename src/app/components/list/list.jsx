@@ -10,7 +10,7 @@ const itemClassName = 'list__item';
 const linkClassName = 'linkClassName';
 
 export function List({
-    items = [], renderItem = defaultRenderItem, className, children, ...props
+  items = [], renderItem = defaultRenderItem, className, children, ...props
 }) {
   const classes = cn('list', className);
   return (
