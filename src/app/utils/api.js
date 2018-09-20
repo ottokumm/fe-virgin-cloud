@@ -46,7 +46,7 @@ export async function request(endpoint, options, checkErrors = true) {
     checkSuccess(response);
   }
 
-  return response;
+  return response.data;
 }
 
 export const Request = {
