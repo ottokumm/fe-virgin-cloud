@@ -1,10 +1,12 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import { List } from '../../components/list';
 import { ListItem } from '../../components/list-item';
 import { Icon } from '../../components/icon';
 import { Spinner } from '../../components/spinner';
 
-import { files } from '../../services/api';
+import * as files from '../../store/files';
 
 const FOLDER_TYPE = 'folder';
 const FILE_TYPE = 'file';
@@ -23,7 +25,13 @@ const styles = {
   },
 };
 
-export class Root extends React.Component {
+@connect(
+  () => ({ files }),
+  dispatch => ({
+    filesActions: bindActionCreators(files, dispatch),
+  }),
+)
+class Root extends React.Component {
   constructor(props) {
     super(props);
 
@@ -82,3 +90,5 @@ function renderLoader() {
 function getIconByFileType(type) {
   return iconTypes[type];
 }
+
+export default Root;
