@@ -8,6 +8,7 @@
     "document": false
   },
   "rules": {
+    "jsx-a11y/no-static-element-interactions": "false",
     "react/prop-types": "off",
     "import/prefer-default-export": "off",
     "no-use-before-define": [

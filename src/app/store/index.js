@@ -9,9 +9,11 @@ import { middleware as packMiddleware } from 'redux-pack';
 import thunkMiddleware from 'redux-thunk';
 
 import { reducers as files } from './files';
+import { reducers as imageOverlay } from './image-overlay';
 
 const reducers = combineReducers({
   files,
+  imageOverlay,
 });
 
 const enhancers = compose(
