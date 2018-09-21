@@ -51,8 +51,10 @@ function fullsizeImage(state = {}, action) {
   const { type, payload } = action;
 
   switch (type) {
-    case FULLSIZE_IMAGE_SHOW:
+    case FULLSIZE_IMAGE_SHOW: {
+      console.log('REDUCER', payload);
       return { show: true, imageProps: { ...payload } };
+    }
 
     case FULLSIZE_IMAGE_HIDE:
       return { show: false };
@@ -65,10 +67,12 @@ function fullsizeImage(state = {}, action) {
 
 // Selectors
 
-const visibilitySelector = state => (state.imageOverlay || {}).visible;
-const showSelector = state => (state.fullsizeImage || {}).show;
+const visibilitySelector = ({ overlay = {} }) => overlay.imageOverlay.visible;
+const showSelector = ({ overlay = {} }) => overlay.fullsizeImage.show;
+const fullsizeImageProps = ({ overlay = {} }) => overlay.fullsizeImage.imageProps;
 
 export const selector = createStructuredSelector({
   visible: visibilitySelector,
   show: showSelector,
+  imageProps: fullsizeImageProps,
 });

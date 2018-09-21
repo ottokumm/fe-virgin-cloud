@@ -8,20 +8,20 @@ import { Icon } from '../../components/icon';
 import { Spinner } from '../../components/spinner';
 
 
-import * as imageOverlayStore from '../../store/image-overlay';
+import * as overlayStore from '../../store/image-overlay';
 
 import styles from './fullsize-image.scss';
 
 const cn = classnames.bind(styles);
 
-const getImageUrl = () => ['url1', 'url2']
+const getImageUrl = () => ['url1', 'url2'];
 
 @connect(
   state => ({
-    imageOverlay: imageOverlayStore.selector(state),
+    overlay: overlayStore.selector(state),
   }),
   dispatch => ({
-    imageOverlayActions: bindActionCreators(imageOverlayStore, dispatch),
+    overlayActions: bindActionCreators(overlayStore, dispatch),
   }),
 )
 class FullsizeImage extends React.Component {
@@ -30,34 +30,37 @@ class FullsizeImage extends React.Component {
     this.state = {
       images: [],
       progress: {},
-      isFetching: true,
+      isFetching: false,
+      activeTab: 0,
     };
 
-    this.nativeGoBack = this.nativeGoBack.bind(this);
     this.handleProgress = this.handleProgress.bind(this);
     this.handleHide = this.handleHide.bind(this);
     this.handleChangeIndex = this.handleChangeIndex.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    const { imageOverlay } = this.props;
-    const { show } = imageOverlay;
+    const { overlay } = this.props;
 
-    if (nextProps.show && !show) {
-      const { imageProps = {} } = nextProps;
-      const { images = [], imagePos } = imageProps;
+    const { overlay: overlayNext } = nextProps;
 
-      this.setState({ images: [], isFetching: true }, () => Promise.all(images.map(image => getImageUrl(image, 'product_fullsize')))
-        .then(response => this.setState({
-          images: response,
-          isFetching: false,
-          activeTab: imagePos,
-        })));
+    const { show } = overlay;
+    const { show: showNext } = overlayNext;
+
+    console.log('FULLSIZE', nextProps);
+    if (showNext && !show) {
+      console.log('AAAAAAAAAAAAAAAAAAA', nextProps);
+      const { imageProps = {} } = overlayNext;
+      const { images = [], imagePos = 2 } = imageProps;
+
+      this.setState({ images, activeTab: imagePos });
     }
   }
 
   handleHide() {
-    this.setState({ images: [], progress: {} });
+    const { overlayActions } = this.props;
+    const { hideFullsizeImage } = overlayActions;
+    this.setState({ images: [], progress: {} }, () => hideFullsizeImage());
   }
 
   handleProgress(image) {
@@ -68,15 +71,9 @@ class FullsizeImage extends React.Component {
     this.setState({ activeTab: index });
   }
 
-  nativeGoBack(e) {
-    e.stopPropagation();
-    e.preventDefault();
-
-    this.handleHide();
-  }
-
   render() {
-    const { show, className } = this.props;
+    const { overlay, className } = this.props;
+    const { show } = overlay;
     const {
       images, isFetching, progress, activeTab,
     } = this.state;
@@ -86,7 +83,7 @@ class FullsizeImage extends React.Component {
         ? (
           <div className={cn('fullsize-image', { 'fullsize-image--show': show }, className)}>
             <div onClick={this.handleHide} className={cn('fullsize-image__touch-area')} onKeyDown={() => { }}>
-              <Icon color="gray" icon="close" size="large" />
+              <Icon color="gray" icon="close" />
             </div>
 
             {show && isFetching && <Spinner />}

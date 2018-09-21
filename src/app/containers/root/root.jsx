@@ -11,7 +11,7 @@ import { Icon } from '../../components/icon';
 import { Spinner } from '../../components/spinner';
 
 import * as filesStore from '../../store/files';
-import * as imageOverlayStore from '../../store/image-overlay';
+import * as overlayStore from '../../store/image-overlay';
 
 const FOLDER_TYPE = 'folder';
 const FILE_TYPE = 'file';
@@ -36,7 +36,7 @@ const styles = {
     files: filesStore.selector(state, 'root'),
   }),
   dispatch => ({
-    imageOverlayActions: bindActionCreators(imageOverlayStore, dispatch),
+    overlayActions: bindActionCreators(overlayStore, dispatch),
     filesActions: bindActionCreators(filesStore, dispatch),
   }),
 )
@@ -56,13 +56,20 @@ class Root extends React.Component {
     getRootFiles();
   }
 
+  getItemPos = (item) => {
+    const { files } = this.props;
+    const { items } = files;
+    console.log('CLICK');
+    const pr = files.findsIndex(id => items[id].name === item.name);
+
+    console.log(pr);
+  }
+
   renderList() {
-    const { files, imageOverlayActions } = this.props;
+    const { files, overlayActions } = this.props;
 
-    const { itemsOrdered } = files;
-    console.log(files);
+    const { itemsOrdered, imagesIds } = files;
 
-    imageOverlayActions.showFullsizeImage();
     return (
       <List
         items={itemsOrdered}
@@ -72,6 +79,12 @@ class Root extends React.Component {
               media={<Icon icon={getIconByFileType(item.fType)} />}
               content={item.name}
               after={item.mediaType}
+              onClick={() => {
+                console.log(item.fType);
+                if (item.mediaType === 'image/jpeg') {
+                  overlayActions.showFullsizeImage({ images: files.images, imagePos: imagesIds.findIndex(image => image === item.path) });
+                }
+              }}
             />
           )
         }
@@ -81,7 +94,6 @@ class Root extends React.Component {
 
   render() {
     const { isPending } = this.state;
-
     return (
       <div style={styles.layout}>
         {renderImageOverlay()}

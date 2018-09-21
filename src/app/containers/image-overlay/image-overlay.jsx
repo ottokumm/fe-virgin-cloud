@@ -3,16 +3,24 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import styles from './image-overlay.scss';
 
-import * as imageOverlay from '../../store/image-overlay';
+import * as overlayStore from '../../store/image-overlay';
 
 const cn = classnames.bind(styles);
 
-@connect(state => imageOverlay.selector(state), null)
+@connect(
+  state => ({
+    overlay: overlayStore.selector(state),
+  }),
+)
 class ImageOverlay extends React.Component {
   render() {
     const {
-      children, className, visible, dispatch, ...props
+      children, className, overlay, ...props
     } = this.props;
+
+    const { visible } = overlay;
+
+    console.log('IMAGEOVERLAY', this.props);
 
     return (
       <div

@@ -3,7 +3,7 @@ import { combineReducers } from 'redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { fs } from '../../services/api';
 
-import * as _files from '../../__mocks__/response/files.json';
+// import * as _files from '../../__mocks__/response/files.json';
 
 const prefix = 'APP/FILES';
 
@@ -13,7 +13,7 @@ const GET_ROOT_FILES = `${prefix}/GET_ROOT_FILES`;
 
 // Mocks
 const mocks = {
-  getRootFiles: Promise.resolve({ data: _files.default }),
+  getRootFiles: null, // Promise.resolve({ data: _files.default }),
 };
 
 
@@ -107,11 +107,23 @@ const filesItemsOrderedSelector = createSelector(
   (items = {}, ids = []) => ids.map(id => items[id]),
 );
 
+const filesImageIdsSelector = createSelector(
+  [filesItemsSelector, filesItemsIdsOrderedSelector],
+  (items = {}, ids = []) => ids.filter(id => items[id].mediaType === 'image/jpeg'),
+);
+
+const filesImageItemsOrderedSelector = createSelector(
+  [filesItemsSelector, filesImageIdsSelector],
+  (items = {}, ids = []) => ids.map(id => items[id].url),
+);
+
 export const selector = createStructuredSelector(
   {
     items: filesItemsSelector,
     ids: filesItemsIdsSelector,
     idsOrdered: filesItemsIdsOrderedSelector,
     itemsOrdered: filesItemsOrderedSelector,
+    imagesIds: filesImageIdsSelector,
+    images: filesImageItemsOrderedSelector,
   },
 );

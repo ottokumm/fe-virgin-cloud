@@ -32,4 +32,9 @@ $icon-size-medium: 24px;
             background-image: url('../../assets/icons/icon-image.svg');
         }
     }
+    &--close {
+        &::before {
+            background-image: url('../../assets/icons/icon-close.svg');
+        }
+    }
 }
