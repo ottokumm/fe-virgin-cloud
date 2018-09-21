@@ -26,7 +26,9 @@ const styles = {
 };
 
 @connect(
-  () => ({ files }),
+  state => ({
+    files: files.selector(state, 'root'),
+  }),
   dispatch => ({
     filesActions: bindActionCreators(files, dispatch),
   }),
@@ -36,42 +38,33 @@ class Root extends React.Component {
     super(props);
 
     this.state = {
-      isPending: true,
-      data: [],
+      isPending: false,
     };
   }
 
   componentDidMount() {
-    files
-      .getFiles()
-      .then((response) => {
-        this.setState(() => ({
-          isPending: false,
-          data: response,
-        }));
-      })
-      .catch(() => {
-        this.setState(() => ({
-          isPending: false,
-        }));
-      });
+    const { filesActions } = this.props;
+    const { getRootFiles } = filesActions;
+
+    getRootFiles();
   }
 
   renderList() {
-    const { data } = this.state;
-
+    const { files: fs } = this.props;
+    const { itemsOrdered } = fs;
+    console.log(fs);
     return (
       <List
-        items={data}
+        items={itemsOrdered}
         renderItem={
-                    item => (
-                      <ListItem
-                        media={<Icon icon={getIconByFileType(item.fType)} />}
-                        content={item.name}
-                        after={item.mediaType}
-                      />
-                    )
-                }
+          item => (
+            <ListItem
+              media={<Icon icon={getIconByFileType(item.fType)} />}
+              content={item.name}
+              after={item.mediaType}
+            />
+          )
+        }
       />
     );
   }
