@@ -14,8 +14,6 @@ import styles from './fullsize-image.scss';
 
 const cn = classnames.bind(styles);
 
-const getImageUrl = () => ['url1', 'url2'];
-
 @connect(
   state => ({
     overlay: overlayStore.selector(state),

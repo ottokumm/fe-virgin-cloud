@@ -82,7 +82,10 @@ class Root extends React.Component {
               onClick={() => {
                 console.log(item.fType);
                 if (item.mediaType === 'image/jpeg') {
-                  overlayActions.showFullsizeImage({ images: files.images, imagePos: imagesIds.findIndex(image => image === item.path) });
+                  overlayActions.showFullsizeImage({
+                    images: files.images,
+                    imagePos: imagesIds.findIndex(image => image === item.path),
+                  });
                 }
               }}
             />

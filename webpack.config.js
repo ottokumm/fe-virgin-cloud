@@ -35,10 +35,6 @@ module.exports = {
       },
     }],
   },
-  devServer: {
-    inline: true,
-    port: 5999,
-  },
   plugins: [
     new HtmlWebPackPlugin({
       template: './src/app/index.html',
