@@ -8,7 +8,9 @@
     "build": "webpack --mode production",
     "test": "echo \"Error: no test specified\" && exit 1",
     "eslint": "eslint \"src/**/*.@(js|jsx)\"",
-    "stylelint": "stylelint \"src/**/*.scss\""
+    "stylelint": "stylelint \"src/**/*.scss\"",
+    "serve:dist": "node_modules/.bin/pushstate-server dist",
+    "deploy:localhost": "npm run build && npm run serve:dist"
   },
   "keywords": [],
   "author": "",
