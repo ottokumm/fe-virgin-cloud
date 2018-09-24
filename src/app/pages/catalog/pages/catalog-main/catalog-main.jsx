@@ -26,6 +26,10 @@ const styles = {
     justifyContent: 'center',
     height: '100%',
   },
+  list: {
+    width: '100%',
+    alignSelf: 'baseline',
+  },
 };
 
 @connect(
@@ -60,6 +64,7 @@ class CatalogMain extends React.Component {
 
     return (
       <List
+        style={styles.list}
         items={itemsOrdered}
         renderItem={
           item => (
