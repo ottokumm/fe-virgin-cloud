@@ -3,17 +3,18 @@ import { combineReducers } from 'redux';
 import { createSelector, createStructuredSelector } from 'reselect';
 import { fs } from '../../services/api';
 
-// import * as _files from '../../__mocks__/response/files.json';
+import * as _files from '../../__mocks__/response/files.json';
 
 const prefix = 'APP/FILES';
 
 // Action types
 const GET_ROOT_FILES = `${prefix}/GET_ROOT_FILES`;
+const GET_FILES_BY_PATH = `${prefix}/GET_FILES_BY_PATH`;
 
 
 // Mocks
 const mocks = {
-  getRootFiles: null, // Promise.resolve({ data: _files.default }),
+  getRootFiles: Promise.resolve({ data: _files.default }),
 };
 
 
@@ -34,6 +35,22 @@ const normalizeRootFiles = (response) => {
   };
 };
 
+const normalizeFiles = (response, path) => {
+  const { data = [] } = response || {};
+
+  const items = data.reduce((accumulator, currentValue) => {
+    const id = currentValue.path;
+    accumulator[id] = currentValue;
+    return accumulator;
+  }, {});
+
+  const ids = Object.keys(items);
+
+  return {
+    root: { items, ids, path: path || 'root' },
+  };
+};
+
 
 // Action creators
 export function getRootFiles() {
@@ -44,10 +61,20 @@ export function getRootFiles() {
   };
 }
 
+export function getFilesByPath(path) {
+  const request = mocks.getFilesByPath || fs.getFilesByPath(path).then(response => response);
+  return {
+    type: GET_FILES_BY_PATH,
+    promise: request.then(response => normalizeFiles(response, path)),
+  };
+}
+
+
 // Reducers
 export const reducers = combineReducers({
   filesItems,
   filesItemsIds,
+  progress,
 });
 
 function filesItems(state = {}, action) {
@@ -60,6 +87,15 @@ function filesItems(state = {}, action) {
           const { root } = payload;
           const { items } = root;
           return { ...stateNew, root: { ...stateNew.root, ...items } };
+        },
+      });
+    }
+    case GET_FILES_BY_PATH: {
+      return handle(state, action, {
+        success: (stateNew) => {
+          const { path, items } = payload;
+
+          return { ...stateNew, [path]: { ...stateNew[path], ...items } };
         },
       });
     }
@@ -82,9 +118,35 @@ function filesItemsIds(state = {}, action) {
         },
       });
     }
+    case GET_FILES_BY_PATH: {
+      return handle(state, action, {
+        success: (stateNew) => {
+          const { ids, path } = payload;
+
+          return { ...stateNew, [path]: ids };
+        },
+      });
+    }
     default: {
       return state;
     }
+  }
+}
+
+
+function progress(state = 0, action) {
+  const { type } = action;
+
+  switch (type) {
+    case GET_ROOT_FILES:
+    case GET_FILES_BY_PATH:
+      return handle(state, action, {
+        start: stateOld => stateOld + 1,
+        finish: stateOld => stateOld - 1,
+      });
+
+    default:
+      return state;
   }
 }
 
@@ -100,6 +162,7 @@ const filesItemsIdsOrderedSelector = createSelector(
     });
   },
 );
+const progressSelector = ({ files }) => !!files.progress;
 
 const filesItemsOrderedSelector = createSelector(
   [filesItemsSelector, filesItemsIdsOrderedSelector],
@@ -124,5 +187,6 @@ export const selector = createStructuredSelector(
     itemsOrdered: filesItemsOrderedSelector,
     imagesIds: filesImageIdsSelector,
     images: filesImageItemsOrderedSelector,
+    isPending: progressSelector,
   },
 );

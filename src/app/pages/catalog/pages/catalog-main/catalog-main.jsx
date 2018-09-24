@@ -7,6 +7,8 @@ import { ListItem } from '../../../../components/list-item';
 import { Icon } from '../../../../components/icon';
 import { Spinner } from '../../../../components/spinner';
 
+import { getPathFromPathname } from '../../../../utils/url';
+
 import * as filesStore from '../../../../store/files';
 import * as overlayStore from '../../../../store/image-overlay';
 
@@ -33,28 +35,29 @@ const styles = {
 };
 
 @connect(
-  state => ({
-    files: filesStore.selector(state, 'root'),
-  }),
+  (state, { location }) => {
+    const { pathname } = location;
+    const path = getPathFromPathname(pathname);
+    return {
+      files: filesStore.selector(state, path),
+    };
+  },
   dispatch => ({
     overlayActions: bindActionCreators(overlayStore, dispatch),
     filesActions: bindActionCreators(filesStore, dispatch),
   }),
 )
 class CatalogMain extends React.Component {
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isPending: false,
-    };
-  }
-
   componentDidMount() {
-    const { filesActions } = this.props;
-    const { getRootFiles } = filesActions;
+    const { location } = this.props;
+    const { pathname } = location;
 
-    getRootFiles();
+    const { filesActions } = this.props;
+    const { getFilesByPath } = filesActions;
+
+    const path = getPathFromPathname(pathname);
+
+    getFilesByPath(path);
   }
 
   renderList() {
@@ -88,7 +91,9 @@ class CatalogMain extends React.Component {
   }
 
   render() {
-    const { isPending } = this.state;
+    const { files } = this.props;
+    const { isPending } = files;
+
     return (
       <div style={styles.layout}>
         {isPending ? renderLoader() : this.renderList()}
