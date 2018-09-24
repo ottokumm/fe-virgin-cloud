@@ -38,7 +38,6 @@ const normalizeRootFiles = (response) => {
 // Action creators
 export function getRootFiles() {
   const request = mocks.getRootFiles || fs.getFiles().then(response => response);
-  console.log(request);
   return {
     type: GET_ROOT_FILES,
     promise: request.then(normalizeRootFiles),
@@ -94,7 +93,7 @@ const filesItemsIdsSelector = ({ files }, path) => (files.filesItemsIds || {})[p
 const filesItemsIdsOrderedSelector = createSelector(
   [filesItemsSelector, filesItemsIdsSelector],
   (items = {}, ids = []) => {
-    console.log(items, ids);
+    console.log('filesItemsIdsSelector:', items, ids);
     return ids.sort((curId) => {
       const curItem = items[curId];
       return curItem.fType === 'file' ? 1 : -1;

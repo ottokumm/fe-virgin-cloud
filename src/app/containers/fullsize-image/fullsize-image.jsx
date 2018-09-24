@@ -45,9 +45,7 @@ class FullsizeImage extends React.Component {
     const { show } = overlay;
     const { show: showNext } = overlayNext;
 
-    console.log('FULLSIZE', nextProps);
     if (showNext && !show) {
-      console.log('AAAAAAAAAAAAAAAAAAA', nextProps);
       const { imageProps = {} } = overlayNext;
       const { images = [], imagePos = 2 } = imageProps;
 

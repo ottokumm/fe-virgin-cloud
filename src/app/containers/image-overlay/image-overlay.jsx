@@ -20,8 +20,6 @@ class ImageOverlay extends React.Component {
 
     const { visible } = overlay;
 
-    console.log('IMAGEOVERLAY', this.props);
-
     return (
       <div
         {...props}

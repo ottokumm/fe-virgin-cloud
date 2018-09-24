@@ -26,6 +26,10 @@ $block: 'fullsize-image';
     background-position-x: 50%;
     background-position-y: 50%;
 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
     width: 260px;
 
     @media all and (min-width: 468px) {

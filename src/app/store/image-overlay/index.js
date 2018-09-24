@@ -52,7 +52,6 @@ function fullsizeImage(state = {}, action) {
 
   switch (type) {
     case FULLSIZE_IMAGE_SHOW: {
-      console.log('REDUCER', payload);
       return { show: true, imageProps: { ...payload } };
     }
 
