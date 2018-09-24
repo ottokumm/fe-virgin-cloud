@@ -1,9 +1,10 @@
-import { Root } from './containers/root';
-import * as ROUTES from './constants/routes';
 
-export const routes = [
-  {
-    path: ROUTES.ROOT,
-    component: Root,
-  },
-];
+import login from './pages/login/routes';
+import catalog from './pages/catalog/routes';
+
+export const routes = () => ([
+  login(),
+  catalog(),
+]);
+
+export default routes;

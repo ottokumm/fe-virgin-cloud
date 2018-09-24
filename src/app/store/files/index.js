@@ -43,12 +43,10 @@ const normalizeFiles = (response, path) => {
     accumulator[id] = currentValue;
     return accumulator;
   }, {});
-
+  console.log(items, path);
   const ids = Object.keys(items);
 
-  return {
-    root: { items, ids, path: path || 'root' },
-  };
+  return { items, ids, path: path || 'root' };
 };
 
 
@@ -95,7 +93,7 @@ function filesItems(state = {}, action) {
         success: (stateNew) => {
           const { path, items } = payload;
 
-          return { ...stateNew, [path]: { ...stateNew[path], ...items } };
+          return { ...stateNew, ...({ [path]: items }) };
         },
       });
     }
@@ -150,17 +148,14 @@ function progress(state = 0, action) {
   }
 }
 
-const filesItemsSelector = ({ files }, path) => (files.filesItems || {})[path];
-const filesItemsIdsSelector = ({ files }, path) => (files.filesItemsIds || {})[path];
+const filesItemsSelector = ({ files }, path) => (files.filesItems || {})[path || 'root'];
+const filesItemsIdsSelector = ({ files }, path) => (files.filesItemsIds || {})[path || 'root'];
 const filesItemsIdsOrderedSelector = createSelector(
   [filesItemsSelector, filesItemsIdsSelector],
-  (items = {}, ids = []) => {
-    console.log('filesItemsIdsSelector:', items, ids);
-    return ids.sort((curId) => {
-      const curItem = items[curId];
-      return curItem.fType === 'file' ? 1 : -1;
-    });
-  },
+  (items = {}, ids = []) => ids.sort((curId) => {
+    const curItem = items[curId];
+    return curItem.fType === 'file' ? 1 : -1;
+  }),
 );
 const progressSelector = ({ files }) => !!files.progress;
 

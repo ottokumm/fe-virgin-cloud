@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
@@ -50,6 +51,26 @@ const styles = {
 class CatalogMain extends React.Component {
   componentDidMount() {
     const { location } = this.props;
+
+    this.fetchFiles(location);
+  }
+
+  componentDidUpdate(prevProps) {
+    const { location } = this.props;
+    const { location: prevLocation } = prevProps;
+
+    if (location !== prevLocation) {
+      this.fetchFiles(location);
+    }
+  }
+
+  getItemPath = (path) => {
+    const { location } = this.props;
+    const { pathname } = location;
+    return `${pathname}/${path}`;
+  }
+
+  fetchFiles(location) {
     const { pathname } = location;
 
     const { filesActions } = this.props;
@@ -59,6 +80,7 @@ class CatalogMain extends React.Component {
 
     getFilesByPath(path);
   }
+
 
   renderList() {
     const { files, overlayActions } = this.props;
@@ -70,21 +92,29 @@ class CatalogMain extends React.Component {
         style={styles.list}
         items={itemsOrdered}
         renderItem={
-          item => (
-            <ListItem
-              media={<Icon icon={getIconByFileType(item.fType)} />}
-              content={item.name}
-              after={item.mediaType}
-              onClick={() => {
-                if (item.mediaType === 'image/jpeg') {
-                  overlayActions.showFullsizeImage({
-                    images: files.images,
-                    imagePos: imagesIds.findIndex(image => image === item.path),
-                  });
-                }
-              }}
-            />
-          )
+          (item) => {
+            const isLink = item.fType === FOLDER_TYPE;
+            const linkProps = {
+              to: isLink ? this.getItemPath(item.path) : undefined,
+              component: isLink ? Link : undefined,
+            };
+            return (
+              <ListItem
+                {...linkProps}
+                media={<Icon icon={getIconByFileType(item.fType)} />}
+                content={item.name}
+                after={item.mediaType}
+                onClick={() => {
+                  if (item.mediaType === 'image/jpeg') {
+                    overlayActions.showFullsizeImage({
+                      images: files.images,
+                      imagePos: imagesIds.findIndex(image => image === item.path),
+                    });
+                  }
+                }}
+              />
+            );
+          }
         }
       />
     );

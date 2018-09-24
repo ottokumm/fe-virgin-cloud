@@ -1,3 +1,3 @@
-export const ROOT = '/';
+export const LOGIN = '/';
 
 export const CATALOG = '/catalog';
