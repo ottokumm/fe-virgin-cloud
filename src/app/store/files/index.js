@@ -43,7 +43,7 @@ const normalizeFiles = (response, path) => {
     accumulator[id] = currentValue;
     return accumulator;
   }, {});
-  console.log(items, path);
+
   const ids = Object.keys(items);
 
   return { items, ids, path: path || 'root' };
